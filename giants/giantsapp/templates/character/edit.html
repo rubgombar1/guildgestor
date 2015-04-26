@@ -1,0 +1,12 @@
+{% extends 'master-page/master-page.html' %}
+{% load i18n %}
+{% block title %} {% trans "Edit data" %}{% endblock %}
+{% block jumbotron %}
+    <form action="save_edit" method="post">
+        {% csrf_token %}
+        <div class = "form_style">
+            {{ form.as_p }}
+        </div>
+        <input type = "submit" value = {% trans "Send" %}>
+    </form>
+{% endblock %}

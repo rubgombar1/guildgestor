@@ -1,0 +1,23 @@
+{% extends 'master-page/master-page.html' %}
+{% load i18n %}
+{% block title %} GuildMania {% endblock %}
+{% block jumbotron %}
+
+    <h1>¡Bienvenido!</h1>
+    <p>GuildMania es una aplicación web mediante la cuál podrás gestionar fácil y rapidamente tu hermandad, solo tienes que registrarte,
+        crear tu hermandad y ya podrás comenzar a gestionar tu propia hermandad. Podrás crear eventos, abrir y cerrar
+        applys (y por supuesto aceptarlas o denegarlas (carita)), etc... ¡Entra, registra tu hermandad y lleva la gestión
+        de la forma mas sencilla posible!</p>
+    <p>¿No eres líder de ninguna hermandad?¡No te precoupes, también tenemos hueco para tí!
+    Registrate y podras gestionar tus personajes y poner toda tu información para buscar hermandad y tener mayor
+        éxito, podrás apuntarte a los eventos que ofrezcan las hermandades a las que perteneces, enviar mensajes entre
+        usuario, etc... ¡Entra y descúbrelo!
+    </p>
+{%  if user.is_anonymous %}
+    <p>¿No estas registrado todavía? !Registrate ahora y disfruta de las comodidades que ofrecemos! </p>
+    <p>
+        <a class="btn btn-primary btn-lg" role="button" href="/player/create">{% trans "Registrate" %} »</a>
+    </p>
+{% endif %}
+
+{% endblock %}

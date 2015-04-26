@@ -1,0 +1,8 @@
+{% extends 'master-page/master-page.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block title %}Crear personaje{% endblock %}
+{% block jumbotron %}
+    {% csrf_token %}
+    {% crispy form %}
+{% endblock %}

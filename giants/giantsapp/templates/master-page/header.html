@@ -1,0 +1,78 @@
+ <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand">GuildMania</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+
+                {% if user.is_anonymous %}
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Hermandades <span class="caret"></span></a>
+                      <ul class="dropdown-menu" aria-labelledby="themes">
+                          <li><a href="/player/guild/list">Ver hermandades</a></li>
+                      </ul>
+                </li>
+                {% else %}
+                    <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Personajes <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                  <li><a href="/player/character/create">Crear personaje</a></li>
+                  <li><a href="/player/character/myCharacters">Mis personajes</a></li>
+              </ul>
+            </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Mensajes <span class="caret"></span></a>
+                      <ul class="dropdown-menu" aria-labelledby="themes">
+                          <li><a href="/player/message/recieves">Recibidos</a></li>
+                          <li><a href="/player/message/sends">Enviados</a></li>
+                          <li><a href="/player/message/trash">Eliminados</a></li>
+                      </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Hermandades <span class="caret"></span></a>
+                      <ul class="dropdown-menu" aria-labelledby="themes">
+                          <li><a href="/player/guild/list">Ver hermandades</a></li>
+                          <li><a href="/player/guild/myGuilds">Listas mis hermandades(Como miembro)</a></li>
+                          <li><a href="/player/guild/myGuildsMaster">Listas mis hermandades(Como guild master)</a></li>
+                      </ul>
+                </li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Perfil <span class="caret"></span></a>
+                      <ul class="dropdown-menu" aria-labelledby="themes">
+                          <li><a href="/accounts/profile">Mi perfil</a></li>
+                          <li><a href="/player/player/edit">Editar perfil</a></li>
+                      </ul>
+                    </li>
+                {% endif %}
+
+          </ul>
+
+            {% if user.is_anonymous %}
+                <form class="navbar-form navbar-right" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <!--<input class="form-control" type="text" placeholder="Email">-->
+                        <input class="form-control" id="id_username" type="text" name="username" maxlength="254"
+                               placeholder="Nombre de usuario">
+                    </div>
+                    <div class="form-group">
+                        <!--<input class="form-control" type="password" placeholder="Password">-->
+                        <input class="form-control" id="id_password" type="password" name="password"
+                               placeholder="Contraseña">
+                    </div>
+                    <button class="btn btn-success" type="submit">Conectate</button>
+                     <a class="btn btn-primary" href="/player/create">Registrate</a>
+                </form>
+            {% else %}
+                <div class="navbar-form navbar-right">
+                <span>Conectado como:{{ user.get_username }}</span>
+                <a class="btn btn-danger" role="button" href="/accounts/logout">Desconectate</a>
+                </div>
+
+            {% endif %}
+        </div>
+      </div>
+    </div>

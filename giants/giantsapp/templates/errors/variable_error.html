@@ -1,0 +1,6 @@
+{% extends 'master-page/master-page.html' %}
+{% load i18n %}
+{% block title %} {{ error }} {% endblock %}
+{% block jumbotron %}
+    <h1 class="text-center text-danger">{{ error }}</h1>
+{% endblock %}

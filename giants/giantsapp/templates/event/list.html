@@ -1,0 +1,63 @@
+{% extends 'master-page/master-page.html' %}
+{% load i18n %}
+{% block title %} Próximos eventos {% endblock %}
+{% block jumbotron %}
+    <p>
+    Próximos eventos
+    <table class="table-bordered">
+        <tr>
+            <td><strong>Fecha</strong></td>
+            <td><strong>Tipo</strong></td>
+            <td><strong>Número de tanques</strong></td>
+            <td><strong>Número de DPS</strong></td>
+            <td><strong>Sanadores</strong></td>
+            <td><strong>Número de participantes</strong></td>
+            <td><strong>Ver evento</strong></td>
+        </tr>
+    <tbody>
+    {% for event in events %}
+        <tr>
+            <td>{{ event.fecha }}</td>
+            <td>{{ event.tipo }}</td>
+            {% if event.num_tanques == None%}
+                <td>---</td>
+                {% else %}
+                <td>{{ event.num_tanques }}</td>
+            {% endif %}
+            {% if event.num_dps == None%}
+                <td>---</td>
+                {% else %}
+                <td>{{ event.num_dps }}</td>
+            {% endif %}
+            {% if event.num_heal == None%}
+                <td>---</td>
+                {% else %}
+                <td>{{ event.num_heal }}</td>
+            {% endif %}
+            {% if event.num == None%}
+                <td>---</td>
+                {% else %}
+                <td>{{ event.num }}</td>
+            {% endif %}
+            <td><a href="/player/event/show?eventId={{ event.id }}">Ver evento</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    <div class="pagination">
+    <span class="step-links">
+        {% if events.has_previous %}
+            <a href="?page={{ events.previous_page_number }}">Atrás</a>
+        {% endif %}
+
+        <span class="current">
+            Página {{ events.number }} de {{ events.paginator.num_pages }}.
+        </span>
+
+        {% if events.has_next %}
+            <a href="?page={{ events.next_page_number }}">Siguiente</a>
+        {% endif %}
+    </span>
+    </div>
+    </p>
+{% endblock %}

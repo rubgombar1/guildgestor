@@ -1,0 +1,49 @@
+{% extends 'master-page/master-page.html' %}
+{% load i18n %}
+{% block title %} Hermandades {% endblock %}
+{% block jumbotron %}
+    <p>
+    <p><h1 align="center">Lista de Hermandades</h1></p>
+    <table class="table table-striped table-hover">
+        <tr class="info">
+            <td><strong>Nombre</strong></td>
+            <td><strong>Fecha de creacion</strong></td>
+            <td><strong>Estado de applys</strong></td>
+            <td><strong>Ver hermandad</strong></td>
+        </tr>
+    <tbody>
+    {% for guild in guilds %}
+        <tr>
+            <td>{{ guild.nombre }}</td>
+            <td>{{ guild.fecha_creacion }}</td>
+            {% if guild.abierta == 0%}
+                <td>Cerrados</td>
+                {% else %}
+                <td>Abiertos</td>
+            {% endif %}
+            <td><a href="/player/guild/show?guildId={{ guild.id }}">Ver hermandad</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    <ul class="pagination">
+        {% if guilds.number > 1 %}
+            <li class=""><a href="?page={{ guilds.previous_page_number }}">«</a></li>
+        {% else %}
+            <li class="disabled"><a href="#">«</a></li>
+        {% endif %}
+        {% for numero in numpages %}
+            {% if guilds.number  == numero %}
+                <li class="active"><a href="?page={{ numero }}">{{ numero }}</a></li>
+            {% else %}
+                <li class="disable"><a href="?page={{ numero }}">{{ numero }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if guilds.number < guilds.paginator.num_pages %}
+            <li class=""><a href="?page={{ guilds.next_page_number }}">»</a></li>
+        {% else %}
+            <li class="disabled"><a href="#">»</a></li>
+        {% endif %}
+    </ul>
+    </p>
+{% endblock %}

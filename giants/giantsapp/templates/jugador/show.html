@@ -1,0 +1,54 @@
+{% extends 'master-page/master-page.html' %}
+{% block jumbotron %}
+
+    <div class="row">
+        <div class="col-lg-12" align="center"><h1 align="center">Perfil de usuario {{ jugador.nombre }}     <a href="/player/message/send?receivedId={{ jugador.id }}"><span class="glyphicon glyphicon-envelope"></span></a> </h1> </div>
+        <div class="col-lg-6" align="center">
+            <p class="lead"><strong>Nombre:</strong> {{ jugador.nombre }}</p>
+        </div>
+        <div class="col-lg-6" align="center">
+            <p class="lead"><strong>Nombre de usuario:</strong> {{ jugador.user_account.username }}</p>
+        </div>
+        <div class="col-lg-6" align="center">
+            <p class="lead"><strong>Horario:</strong> {{ jugador.horario }}</p>
+        </div>
+        <div class="col-lg-6" align="center">
+            <p class="lead"><strong>Pais:</strong> {{ jugador.pais }}</p>
+        </div>
+        <div class="col-lg-6" align="center">
+            <p class="lead"><strong>Edad:</strong> {{ jugador.edad }}</p>
+        </div>
+        <div class="col-lg-6" align="center">
+            <span class=""><p class="lead"><strong>Experiencia:</strong> {{ jugador.experiencia }}</p></span>
+        </div>
+        <div class="col-lg-12" align="center"><h1>Personajes</h1></div>
+        <div class="col-lg-12"a="">
+            <br>
+        </div>
+        <table class="table table-striped table-hover">
+        <tr class="info">
+            <td><strong>Nickname</strong></td>
+            <td><strong>Clase</strong></td>
+            <td><strong>Funcion PVE</strong></td>
+            <td><strong>Funcion PVP</strong></td>
+            <td><strong>Ver hermandad</strong></td>
+        </tr>
+        <tbody>
+        {% for personaje in personajes %}
+            <tr>
+                <td><a href="/player/character/show?characterId={{ personaje.id }}">{{ personaje.nickname }}</a></td>
+                <td>{{ personaje.clase }}</td>
+                <td>{{ personaje.pve_funcion }}</td>
+                <td>{{ personaje.pvp_funcion }}</td>
+                {% if personaje.hermandad.id != None %}
+                    <td><a href="/player/guild/show?guildId={{ personaje.hermandad_id }}">{{ personaje.hermandad.nombre }}</a></td>
+                {% else %}
+                     <td>Sin hermandad</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+
+{% endblock %}

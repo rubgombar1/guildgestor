@@ -1,0 +1,32 @@
+{% extends 'master-page/master-page.html' %}
+{% load i18n %}
+{% block title %} Lista de mensajes
+    {% if tipo == sends %}
+    enviados
+    {%  else %}
+    recibidos
+    {%  endif %}
+{% endblock %}
+{% block jumbotron %}
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="col-lg-12"><p class="lead"><strong>Lista de mensajes {{ lista }}
+            </strong></p></div>
+            {% for message in messages %}
+            <div class="col-lg-12"> <p class="lead"><strong><a href="/player/message/{{ tipo }}?messageId={{ message.id }}">{{ message.asunto }}</a></strong></p></div>
+            {% endfor %}
+        </div>
+        <div class="col-lg-6">
+            {% if message  %}
+            <div class="col-lg-12"><p class="lead"><strong>Fecha de envío: {{ message.fecha }}</strong></p></div>
+            <div class="col-lg-12"><p class="lead"><strong>Asunto: {{ message.asunto }}</strong></p></div>
+            <div class="col-lg-12"><p class="lead"><strong>Emisor: {{ message.emisor.user_account.username }}</strong></p></div>
+            <div class="col-lg-12"><p class="lead"><strong>Receptor: {{ message.receptor.user_account.username }}</strong></p></div>
+            <div class="col-lg-12"><p class="lead"><strong>Cuerpo del mensaje: </strong></p></div>
+            <div class="col-lg-12"><div class="col-lg-12"><p class="lead"><strong>{{ message.cuerpo }}</strong></p></div></div>
+            <div><h3><a href="delete?messageId={{ message.id }}&type={{ tipo }}"><span class="glyphicon glyphicon-trash"></span></a></h3></div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

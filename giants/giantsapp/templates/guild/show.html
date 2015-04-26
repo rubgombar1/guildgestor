@@ -1,0 +1,52 @@
+{% extends 'master-page/master-page.html' %}
+{% load i18n %}
+{% block title %}Detalles de hermandad{% endblock %}
+{% block jumbotron %}
+        <h1 class="text-center">Detalles de la hermandad {{ guild.nombre }}</h1>
+    <div class="row">
+        <div class="col-lg-5 ">
+            <div class="col-lg-12"><p class="lead"><strong> Nombre : {{ guild.nombre }}</strong></p></div>
+            <div class="col-lg-12"><p class="lead"><strong>Fecha de creación : {{ guild.fecha_creacion }}</strong></p></div>
+            {% if guild.abierta %}
+                <div class="col-lg-6"><p class="lead"><strong>Applys abiertos  </strong></p></div>
+                <div class="col-lg-6"><p class="lead"><strong><a href="/player/apply/create?guildId={{ guild.id }}">Mandar apply</a> </strong></p></div>
+            {% else %}
+                <div class="col-lg-6"><p class="lead"><strong>Applys cerrados</strong></p></div>
+            {% endif %}
+            <div class="col-lg-12"><p class="lead"><strong>Maestro de hermandad: <a href="/player/character/show?characterId={{ guild.master.id }}">{{ guild.master.nickname }}</a></strong></p></div>
+            <div class="col-lg-12"><p class="lead"><strong><a href="/player/event/listNextEvents?guildId={{ guild.id }}">Próximos eventos</a> {% if userId == guild.master.jugador.user_account.id %}/ <a href="/player/event/pvp/create?guildId={{ guild.id }}">Crear evento PVP</a> / <a href="/player/event/pve/create?guildId={{ guild.id }}">Crear evento PVE</a></strong>{% endif %}</p></div>
+        </div>
+        <div class="col-lg-7">
+            <span class=""><p class="lead"><strong>Descripcion: {{ guild.descripcion }}</strong></p></span>
+        </div>
+    </div>
+    {% if is_master %}
+        {% if applys|length > 0 %}
+        <h1 class=" text-center">Applys</h1>
+        <div class="row" align="center">
+        <div class="col-lg-12"><br></div>
+        <table class="table table-striped table-hover">
+        <tr class="info">
+            <td><strong>Estado</strong></td>
+            <td><strong>Fecha</strong></td>
+            <td><strong>Ver personaje</strong></td>
+            <td><strong>Aceptar</strong></td>
+            <td><strong>Rechazar</strong></td>
+        </tr>
+        <tbody>
+        {% for apply in applys %}
+            <tr>
+                <td>{{ apply.estado }}</td>
+                <td>{{ apply.fecha_apply }}</td>
+                <td><a href="/player/character/show?characterId={{ apply.personaje.id }}">{{ apply.personaje.nickname }}</a></td>
+                <td><a href="/player/apply/accept?applyId={{ apply.id }}">Aceptar</a></td>
+                <td><a href="/player/apply/denied?applyId={{ apply.id }}">Rechazar</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        </div>
+            {% endif %}
+    {% endif %}
+
+{% endblock %}
